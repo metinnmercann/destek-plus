@@ -63,7 +63,11 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildLeftPane(context),
+        // Destek+: the side panel always uses the dark theme over a brand gradient.
+        Theme(
+          data: MyTheme.darkTheme,
+          child: Builder(builder: (context) => buildLeftPane(context)),
+        ),
         if (!isIncomingOnly) const VerticalDivider(width: 1),
         if (!isIncomingOnly) Expanded(child: buildRightPane(context)),
       ],
@@ -130,7 +134,13 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       value: gFFI.serverModel,
       child: Container(
         width: isIncomingOnly ? 280.0 : 200.0,
-        color: Theme.of(context).colorScheme.background,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF0B1B3A), Color(0xFF0E3A4F)],
+          ),
+        ),
         child: Stack(
           children: [
             Column(
