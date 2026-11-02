@@ -32,6 +32,7 @@ Uygulama imzalı olmadığı için SmartScreen uyarı verir: **Ek bilgi > Yine d
 1. DMG'yi aç, Destek+'ı **Uygulamalar** klasörüne sürükle.
 2. İlk açılışta "doğrulanamadı" derse: Uygulamalar'da Destek+'a **sağ tık > Aç**
    (veya Sistem Ayarları > Gizlilik ve Güvenlik > **Yine de aç**).
+   "Hasar görmüş" derse Terminal'de şunu çalıştır: `xattr -cr "/Applications/Destek+.app"`
 3. **Sistem Ayarları > Gizlilik ve Güvenlik** altında Destek+'a şu izinleri ver:
    - **Ekran Kaydı** (karşı taraf ekranı görebilsin)
    - **Erişilebilirlik** (fare ve klavye kontrolü)
