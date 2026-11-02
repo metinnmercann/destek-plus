@@ -1,0 +1,22 @@
+# Destek+ bağlantı sunucusu (RustDesk Server OSS: hbbs + hbbr)
+# Kullanım: bu klasörde `docker compose up -d`
+services:
+  hbbs:
+    container_name: destek-hbbs
+    image: rustdesk/rustdesk-server:latest
+    command: hbbs
+    volumes:
+      - ./data:/root
+    network_mode: host
+    depends_on:
+      - hbbr
+    restart: unless-stopped
+
+  hbbr:
+    container_name: destek-hbbr
+    image: rustdesk/rustdesk-server:latest
+    command: hbbr
+    volumes:
+      - ./data:/root
+    network_mode: host
+    restart: unless-stopped
