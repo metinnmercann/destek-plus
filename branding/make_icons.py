@@ -45,8 +45,10 @@ def tray(size, color):
     return img.resize((size, size), Image.LANCZOS)
 
 
-big = app_icon(1024)
-mac = app_icon(1024, pad=0.1)  # macOS ikonları kenar boşluklu
+# Ana ikon: branding/icon.svg'den 1024px olarak çizilmiş branding/icon-master.png
+big = Image.open("branding/icon-master.png").convert("RGBA").resize((1024, 1024), Image.LANCZOS)
+mac = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0))  # macOS ikonları kenar boşluklu
+mac.paste(big.resize((824, 824), Image.LANCZOS), (100, 100))
 big.save("res/icon.png")
 mac.save("res/mac-icon.png")
 for n, s in [("32x32", 32), ("64x64", 64), ("128x128", 128), ("128x128@2x", 256)]:
@@ -59,14 +61,7 @@ tray(60, (255, 255, 255, 255)).save("res/mac-tray-dark-x2.png")
 tray(48, (0, 0, 0, 255)).save("res/mac-tray-light-x2.png")
 big.resize((512, 512), Image.LANCZOS).save("flutter/assets/icon.png") if __import__("os").path.exists("flutter/assets/icon.png") else None
 
-SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10b981"/><stop offset="1" stop-color="#0d6efd"/></linearGradient></defs>
-<rect width="100" height="100" rx="22" fill="url(#g)"/>
-<g fill="none" stroke="#fff" stroke-width="5.5"><rect x="20" y="24" width="60" height="42" rx="6"/></g>
-<g fill="#fff"><rect x="46" y="66" width="8" height="9"/><rect x="34" y="74" width="32" height="5" rx="2"/>
-<rect x="39" y="42" width="22" height="6" rx="1.8"/><rect x="47" y="34" width="6" height="22" rx="1.8"/></g>
-</svg>
-"""
+SVG = open("branding/icon.svg").read()
 for f in ["flutter/assets/icon.svg", "res/logo.svg", "res/scalable.svg"]:
     open(f, "w").write(SVG)
 print("ok")
