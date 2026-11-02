@@ -3731,7 +3731,8 @@ Color? disabledTextColor(BuildContext context, bool enabled) {
 }
 
 Widget loadPowered(BuildContext context) {
-  if (bind.mainGetBuildinOption(key: "hide-powered-by-me") == 'Y') {
+  // Destek+: the RustDesk credit stays in Settings > About with the AGPL notice.
+  if (true || bind.mainGetBuildinOption(key: "hide-powered-by-me") == 'Y') {
     return SizedBox.shrink();
   }
   return MouseRegion(
