@@ -1,0 +1,28 @@
+name: Destek+ derleme (Windows + macOS)
+
+# Elle çalıştırma: GitHub > Actions > "Destek+ derleme" > Run workflow
+# Sürüm etiketi (ör. v1.0.0) gönderildiğinde de otomatik çalışır.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Dosyaların yükleneceği GitHub Release etiketi"
+        required: false
+        default: "son-surum"
+  push:
+    tags:
+      - "v*"
+  # PR'larda da derler, ama sadece repo herkese açıksa (özel repoda macOS dakikaları 10 kat sayılır).
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.event_name != 'pull_request' || !github.event.repository.private
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: ${{ github.event_name == 'push' && github.ref_name || github.event_name == 'pull_request' && 'test-surumu' || inputs.tag || 'son-surum' }}
