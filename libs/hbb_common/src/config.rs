@@ -115,14 +115,14 @@ const CHARS: &[char] = &[
 ];
 
 // Destek+: bağlantı sunucusu derleme sırasında DESTEK_SERVER / DESTEK_KEY ortam
-// değişkenlerinden okunur (GitHub Actions secrets). Boşsa RustDesk genel sunucusu kullanılır.
+// değişkenlerinden okunur (GitHub Actions secrets). Boşsa Destek+ sunucusu (89.252.185.209) kullanılır.
 pub const RENDEZVOUS_SERVERS: &[&str] = &[match option_env!("DESTEK_SERVER") {
     Some(s) if !s.is_empty() => s,
-    _ => "rs-ny.rustdesk.com",
+    _ => "89.252.185.209",
 }];
 pub const RS_PUB_KEY: &str = match option_env!("DESTEK_KEY") {
     Some(s) if !s.is_empty() => s,
-    _ => "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=",
+    _ => "Eu4T05laqZ8kzj7CVbGwxNDnbix4DM4PmX9nxtW2EGM=",
 };
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
